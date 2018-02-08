@@ -12,5 +12,7 @@ C:\Users\tdoe3\AppData\Local\Temp\VMBuilds\FlexLibrary\nano_atmega328\Debug\Flex
  F:\Programs\ I\ Download\Z\ -\ Files\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
  F:\Programs\ I\ Download\Z\ -\ Files\Arduino\hardware\arduino\avr\variants\eightanaloginputs/pins_arduino.h \
  F:\Programs\ I\ Download\Z\ -\ Files\Arduino\hardware\arduino\avr\variants\eightanaloginputs/../standard/pins_arduino.h \
+ C:\Users\tdoe3\AppData\Local\Temp\VMBuilds\FlexLibrary\nano_atmega328\Debug\FlexHand.h \
+ F:\Programs\ I\ Download\Z\ -\ Files\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
  F:\Programs\ I\ Download\Z\ -\ Files\Arduino\libraries\Servo\src/Servo.h \
  F:\Programs\ I\ Download\Z\ -\ Files\Arduino\libraries\Servo\src/avr/ServoTimers.h

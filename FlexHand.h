@@ -1,4 +1,18 @@
-// FlexHand.h
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//	Arduino Library for Flex Sensors. Created for a robotic hand project designed to mimic a human hand.
+//	Flex Sensors were bought on sparkfun: https://www.sparkfun.com/products/8606
+//	Author: Tyler Gragg
+//	Start Date: 2/7/2018
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#ifndef FlexHand_h
+#define FlexHand_h
+
+#include "Arduino.h"
+#include <Servo.h>  // Needed to output data to servos if running a hand-setup
 
 class FlexHand {
 private:
@@ -31,5 +45,8 @@ public:
 	bool getIsOutputReversed();
 	void setIsOuptutReversed(bool isOutputReversed);
 
-	void setMinMax(int minOutput, int minInput);
+	void setMinMax(int minOutput, int maxOutput);
 };
+
+
+#endif
