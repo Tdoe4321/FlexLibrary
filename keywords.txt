@@ -1,0 +1,25 @@
+# ----------------------------------------------
+# Datatypes - Objects (KEYWORD1)
+# ----------------------------------------------
+
+FlexHand	KEYWORD1
+
+# ----------------------------------------------
+# Methods / Functions (KEYWORD2)
+# ----------------------------------------------
+
+setSensorPin	KEYWORD2
+setOutputPin	KEYWORD2
+getSensorValue	KEYWORD2
+getTranslatedValue	KEYWORD2
+setMaxOutput	KEYWORD2
+setMinOutput	KEYWORD2
+getIsOutputReversed	KEYWORD2
+setIsOutputReversed	KEYWORD2
+setMinMax	KEYWORD2
+
+# ----------------------------------------------
+# Constants (LITERAL1)
+# ----------------------------------------------
+
+
