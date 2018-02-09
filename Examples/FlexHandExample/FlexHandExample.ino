@@ -1,6 +1,5 @@
-﻿//Define sensors and servos
-
-#include "FlexHand.h"
+//#include "FlexHand.h"
+#include <Servo.h>
 
 Servo ring, thumb, pinky, middle, index;
 
