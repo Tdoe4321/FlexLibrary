@@ -22,7 +22,8 @@ private:
 	int translatedValue; //The value that is going to be sent out	
 	int maxOutput;	// Max output on the translated value
 	int minOutput;	// Min output on the translated value
-	bool isOutputReversed;	//Denotes whether the output translated value needs to be reversed or not
+	bool isOutputReversed;	//De1notes notes whether the output translated value needs to be reversed or not
+	Servo servo;
 
 public:
 	FlexHand(int SensorPin);
@@ -46,6 +47,12 @@ public:
 	void setIsOuptutReversed(bool isOutputReversed);
 
 	void setMinMax(int minOutput, int maxOutput);
+	
+	void turn(int deg);
+	
+	void calculateDeg();
+
+	void calcAndTurn();
 };
 
 

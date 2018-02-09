@@ -22,6 +22,8 @@ FlexHand::FlexHand(int SensorPin){
 	setOutputPin(-1);
 	setMaxOutput(700);
 	setMinOutput(400);
+	this.servo.attach(outputPin);
+	pinMode(SensorPin, INPUT);
 }
 
 FlexHand::FlexHand(int SensorPin, int OutputPin){
@@ -29,6 +31,8 @@ FlexHand::FlexHand(int SensorPin, int OutputPin){
 	setOutputPin(OutputPin);
 	setMaxOutput(700);
 	setMinOutput(400);
+	this.servo.attach(outputPin);
+	pinMode(SensorPin, INPUT);
 }
 
 FlexHand::FlexHand(int SensorPin, int OutputPin, int maxOutput, int minOutput){
@@ -36,6 +40,8 @@ FlexHand::FlexHand(int SensorPin, int OutputPin, int maxOutput, int minOutput){
 	setOutputPin(OutputPin);
 	setMaxOutput(maxOutput);
 	setMinOutput(minOutput);
+	this.servo.attach(outputPin);
+	pinMode(SensorPin, INPUT);
 }
 
 FlexHand::FlexHand(int SensorPin, int OutputPin, int maxOutput, int minOutput, bool isOutputReversed){
@@ -44,14 +50,16 @@ FlexHand::FlexHand(int SensorPin, int OutputPin, int maxOutput, int minOutput, b
 	setMaxOutput(maxOutput);
 	setMinOutput(minOutput);
 	setIsOuptutReversed(isOutputReversed);
+	this.servo.attach(outputPin);
+	pinMode(SensorPin, INPUT);
 }
 
 void FlexHand::setSensorPin(int sensorPin){
-	this->sensorPin = sensorPin;
+	this.sensorPin = sensorPin;
 }
 
 void FlexHand::setOutputPin(int outputPin){
-	this->outputPin = outputPin;
+	this.outputPin = outputPin;
 }
 
 int FlexHand::getSensorValue(){
@@ -67,7 +75,7 @@ void FlexHand::setMaxOutput(int maxOutput){
 }
 
 void FlexHand::setMinOutput(int minOutput){
-	this->minOutput = minOutput;
+	this.minOutput = minOutput;
 }
 
 bool FlexHand::getIsOutputReversed(){
@@ -75,10 +83,23 @@ bool FlexHand::getIsOutputReversed(){
 }
 
 void FlexHand::setIsOuptutReversed(bool isOutputReversed){
-	this->isOutputReversed = isOutputReversed;
+	this.isOutputReversed = isOutputReversed;
 }
 
 void FlexHand::setMinMax(int minOutput, int maxOutput){
-	this->minOutput = minOutput;
-	this->maxOutput = maxOutput;
+	this.minOutput = minOutput;
+	this.maxOutput = maxOutput;
+}
+
+void FlexHand::turn(int deg){
+	servo.write(deg)
+}
+
+void FlexHand::calculateDeg(){
+	
+}
+
+void FlexHand::calcAndTurn(){
+	calculateDeg();
+	servo.write(this.translatedValue);
 }
