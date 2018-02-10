@@ -139,11 +139,12 @@ int FlexHand::getTranslatedValue(){
 }
 
 void FlexHand::turn(int deg){
-	isOutputReversed ? servo.write(180 - deg) : servo.write(deg);
+	isOutputReversed ? writeVal = 180 - deg : writeVal = deg;
+	constrain(writeVal, minOutput, maxOutpu);
+	servo.write(writeVal);
 }
 
 
 void FlexHand::calcAndTurn(){
-	calculateDeg();
-	isOutputReversed ? servo.write(180 - deg) : servo.write(deg);
+	
 }

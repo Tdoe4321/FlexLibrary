@@ -56,7 +56,7 @@ public:
 	//Other Functions:
 	int getTranslatedValue(); // returns the exact number that would be sent to the servo
 	
-	void turn(int deg);  // Turn to a specific degree
+	void turn(int deg);  // Turn to a specific degree, still constrained to min and max turn values
 	
 	void calculateDeg();  // Intermediary function to translate the output value
 
