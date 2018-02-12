@@ -11,7 +11,6 @@
 #ifndef FlexHand_h
 #define FlexHand_h
 
-#include "Arduino.h"
 #include <Servo.h>  // Needed to output data to servos if running a hand-setup
 
 class FlexHand {

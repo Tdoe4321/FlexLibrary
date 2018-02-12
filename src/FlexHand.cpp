@@ -16,6 +16,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "FlexHand.h"
+#include "Arduino.h"
 
 FlexHand::FlexHand(int SensorPin){
 	setSensorPin(SensorPin);
@@ -36,7 +37,7 @@ FlexHand::FlexHand(int SensorPin, int OutputPin){
 	setMaxInput(700);
 	setMinInput(400);
 	setIsOuptutReversed(false);
-	this.servo.attach(outputPin);
+	this->servo.attach(outputPin);
 	pinMode(SensorPin, INPUT);
 }
 
@@ -48,7 +49,7 @@ FlexHand::FlexHand(int SensorPin, int OutputPin, int minOutput, int maxOutput){
 	setMaxInput(700);
 	setMinInput(400);
 	setIsOuptutReversed(false);
-	this.servo.attach(outputPin);
+	this->servo.attach(outputPin);
 	pinMode(SensorPin, INPUT);
 }
 
@@ -60,7 +61,7 @@ FlexHand::FlexHand(int SensorPin, int OutputPin, int minInput, int maxInput, int
 	setMaxInput(minInput);
 	setMinInput(maxInput);
 	setIsOuptutReversed(false);
-	this.servo.attach(outputPin);
+	this->servo.attach(outputPin);
 	pinMode(SensorPin, INPUT);
 }
 
@@ -72,7 +73,7 @@ FlexHand::FlexHand(int SensorPin, int OutputPin, int minOutput, int maxOutput, b
 	setMaxInput(700);
 	setMinInput(400);
 	setIsOuptutReversed(isOutputReversed);
-	this.servo.attach(outputPin);
+	this->servo.attach(outputPin);
 	pinMode(SensorPin, INPUT);
 }
 
@@ -84,16 +85,16 @@ FlexHand::FlexHand(int SensorPin, int OutputPin, int minInput, int maxInput, int
 	setMaxInput(minInput);
 	setMinInput(maxInput);
 	setIsOuptutReversed(isOutputReversed);
-	this.servo.attach(outputPin);
+	this->servo.attach(outputPin);
 	pinMode(SensorPin, INPUT);
 }
 
 void FlexHand::setSensorPin(int sensorPin){
-	this.sensorPin = sensorPin;
+	this->sensorPin = sensorPin;
 }
 
 void FlexHand::setOutputPin(int outputPin){
-	this.outputPin = outputPin;
+	this->outputPin = outputPin;
 }
 
 int FlexHand::getSensorValue(){
@@ -101,29 +102,29 @@ int FlexHand::getSensorValue(){
 }
 
 void FlexHand::setMaxOutput(int maxOutput){
-	this.maxOutput = maxOutput;
+	this->maxOutput = maxOutput;
 }
 
 void FlexHand::setMinOutput(int minOutput){
-	this.minOutput = minOutput;
+	this->minOutput = minOutput;
 }
 
 void FlexHand::setMaxInput(int maxInput){
-	this.maxInput = maxInput;
+	this->maxInput = maxInput;
 }	
 
 void FlexHand::setMinInput(int minInput){
-	this.minInput = minInput;
+	this->minInput = minInput;
 }
 
 void FlexHand::setMinMaxOutput(int minOutput, int maxOutput){
-	this.minOutput = minOutput;
-	this.maxOutput = maxOutput;
+	this->minOutput = minOutput;
+	this->maxOutput = maxOutput;
 }
 
 void FlexHand::setMinMaxInput(int minInput, int maxInput){
-	this.minInput = minInput;
-	this.maxInput = maxInput;
+	this->minInput = minInput;
+	this->maxInput = maxInput;
 }
 
 bool FlexHand::getIsOutputReversed(){
@@ -131,7 +132,7 @@ bool FlexHand::getIsOutputReversed(){
 }
 
 void FlexHand::setIsOuptutReversed(bool isOutputReversed){
-	this.isOutputReversed = isOutputReversed;
+	this->isOutputReversed = isOutputReversed;
 }
 
 int FlexHand::getTranslatedValue(){ 
@@ -139,8 +140,9 @@ int FlexHand::getTranslatedValue(){
 }
 
 void FlexHand::turn(int deg){
-	isOutputReversed ? writeVal = 180 - deg : writeVal = deg;
-	constrain(writeVal, minOutput, maxOutpu);
+	int writeVal = deg;
+	isOutputReversed ? (writeVal = (180 - deg)) : (writeVal = deg);
+	constrain(writeVal, minOutput, maxOutput);
 	servo.write(writeVal);
 }
 
