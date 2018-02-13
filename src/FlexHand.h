@@ -53,6 +53,8 @@ public:
 	void setIsOuptutReversed(bool isOutputReversed);
 	
 	//Other Functions:
+	void updateSensor();
+	
 	int getTranslatedValue(); // returns the exact number that would be sent to the servo
 	
 	void turn(int deg);  // Turn to a specific degree, still constrained to min and max turn values

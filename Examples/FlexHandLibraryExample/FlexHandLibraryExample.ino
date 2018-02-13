@@ -19,14 +19,14 @@ FlexHand middle(A3, 11, 0, 180, maxMiddle, minMiddle, false);
 FlexHand index(A4, 3, 0, 180, maxIndex, minIndex, false);
 
 void setup(){
-//  ring.write(90);
-//  thumb.write(90);
-//  pinky.write(90);
-//  middle.write(90);
-//  index.write(90);
-//
-//  delay(3000);
-//
+  ring.turn(90);
+  thumb.turn(90);
+  pinky.turn(90);
+  middle.turn(90);
+  index.turn(90);
+
+  delay(3000);
+
 //  Serial.begin(9600);
 
   //  for(int i = 0; i < 300; i++){
@@ -62,12 +62,11 @@ void setup(){
 
 void loop()
 {
-//Defines analog input variables
-//  fThumb = analogRead(flexPin1);
-//  fIndex = analogRead(flexPin2);
-//  fMiddle = analogRead(flexPin3);
-//  fRing = analogRead(flexPin4);
-//  fPinky = analogRead(flexPin5);
+ring.updateSensor();
+thumb.updateSensor();
+pinky.updateSensor();
+middle.updateSensor();
+index.updateSensor();
 
   /* Defines "pos" variables as being proportional to the flex inputs.
   The 400 to 700 value range seemed adequate for my sensors, but you can change
@@ -84,6 +83,14 @@ void loop()
 //  indexPos = constrain(indexPos, 0, 180);
 //
 //  Serial.println(fMiddle);
+
+ring.calcAndTurn();
+thumb.calcAndTurn();
+pinky.calcAndTurn();
+middle.calcAndTurn();
+index.calcAndTurn();
+
+
 
 
   //Tells servos to move by the amount specified in the "pos" variables

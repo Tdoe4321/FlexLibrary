@@ -11,7 +11,6 @@ FlexHand	KEYWORD1
 setSensorPin	KEYWORD2
 setOutputPin	KEYWORD2
 getSensorValue	KEYWORD2
-getTranslatedValue	KEYWORD2
 setMaxOutput	KEYWORD2
 setMinOutput	KEYWORD2
 setMaxInput	KEYWORD2
@@ -20,6 +19,7 @@ setMinMaxOutput	KEYWORD2
 setMinMaxInput	KEYWORD2
 getIsOutputReversed	KEYWORD2
 setIsOutputReversed	KEYWORD2
+updateSensor KEYWORD2
 getTranslatedValue	KEYWORD2
 turn	KEYWORD2
 calculateDeg	KEYWORD2

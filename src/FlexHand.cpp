@@ -135,18 +135,24 @@ void FlexHand::setIsOuptutReversed(bool isOutputReversed){
 	this->isOutputReversed = isOutputReversed;
 }
 
+void FlexHand::updateSensor(){
+	sensorValue = analogRead(sensorPin);
+}
+
 int FlexHand::getTranslatedValue(){ 
-	return isOutputReversed ? map(sensorValue, minInput, maxInput, minOutput, maxOutput) : map(sensorValue, minInput, maxInput, minOutput, maxOutput);
+	return isOutputReversed ? map(sensorValue, minInput, maxInput, maxOutput, minOutput) : map(sensorValue, minInput, maxInput, minOutput, maxOutput);
 }
 
 void FlexHand::turn(int deg){
 	int writeVal = deg;
-	isOutputReversed ? (writeVal = (180 - deg)) : (writeVal = deg);
-	constrain(writeVal, minOutput, maxOutput);
+	isOutputReversed ? (writeVal = (maxOutput - deg)) : (writeVal = deg);
+	isOutputReversed ? (constrain(writeVal, maxOutput, minOutput)) : (constrain(writeVal, minOutput, maxOutput));
 	servo.write(writeVal);
 }
 
 
 void FlexHand::calcAndTurn(){
-	
+	int val = getTranslatedValue();
+	isOutputReversed ? constrain(val, maxOutput, minOutput) : constrain(val, minOutput, maxOutput);
+	servo.write(val);
 }
