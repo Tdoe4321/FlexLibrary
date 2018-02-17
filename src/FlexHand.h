@@ -11,57 +11,39 @@
 #ifndef FlexHand_h
 #define FlexHand_h
 
-#include <Servo.h>  // Needed to output data to servos if running a hand-setup
+#define AVG 0
+#define RUN_AVG 1
+#define EXP 2
 
 class FlexHand {
 private:
 	int sensorPin;  // The analog pin the Flex sensor is read into 
-	int outputPin;  // The digital pin the new values are outputting to
-	int sensorValue;     //The read in value from the Flex Sensor
-	int maxOutput;	// Max output on the translated value
-	int minOutput;	// Min output on the translated value
 	int maxInput;  	// Max Input on the flex sensors themselves - this is used for calibration on the sensors
 	int minInput;	// Min Input on the flex sensors themselves - this is used for calibration on the sensors
-	bool isOutputReversed;	//De1notes notes whether the output translated value needs to be reversed or not
-	Servo servo;
-
+	int numReadings; // The number of reading you want to take into the Averaging Process
+	int* Vals; // An array of Values
+	int readIndex; // Where we are in the averaging process
+	int smoothingType;
+	
 public:
 	FlexHand(int SensorPin);
-	FlexHand(int SensorPin, int OutputPin);
-	FlexHand(int SensorPin, int OutputPin, int minOutput, int maxOutput);
-	FlexHand(int SensorPin, int OutputPin, int minInput, int maxInput, int minOutput, int maxOutput);
-	FlexHand(int SensorPin, int OutputPin, int minOutput, int maxOutput, bool isOutputReversed);
-	FlexHand(int SensorPin, int OutputPin, int minInput, int maxInput, int minOutput, int maxOutput, bool isOutputReversed);
 
 	//Getter and Setter Functions:
 	void setSensorPin(int sensorPin);
-	
-	void setOutputPin(int outputPin);
-	
+		
 	int getSensorValue();
-
-	void setMaxOutput(int maxOutput);
-	void setMinOutput(int minOutput);
 	
 	void setMaxInput(int maxInput);
 	void setMinInput(int minInput);
 	
-	void setMinMaxOutput(int minOutput, int maxOutput);
 	void setMinMaxInput(int minInput, int maxInput);
-
-	bool getIsOutputReversed();
-	void setIsOuptutReversed(bool isOutputReversed);
 	
 	//Other Functions:
-	void updateSensor();
+	void Calibrate();
 	
-	int getTranslatedValue(); // returns the exact number that would be sent to the servo
+	void updateVal();
 	
-	void turn(int deg);  // Turn to a specific degree, still constrained to min and max turn values
-	
-	void calculateDeg();  // Intermediary function to translate the output value
-
-	void calcAndTurn();  // In loop(), every time you want to update, you need to call this function
+	bool isBent();
 };
 
 

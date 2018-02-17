@@ -29,4 +29,7 @@ calcAndTurn	KEYWORD2
 # Constants (LITERAL1)
 # ----------------------------------------------
 
+AVG	LITERAL1
+RUN_AVG	LITERAL1
+EXP	LITERAL1
 

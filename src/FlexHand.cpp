@@ -19,94 +19,51 @@
 #include "Arduino.h"
 
 FlexHand::FlexHand(int SensorPin){
-	setSensorPin(SensorPin);
-	setOutputPin(-1);
-	setMaxOutput(180);
-	setMinOutput(0);
-	setMaxInput(700);
-	setMinInput(400);
-	setIsOuptutReversed(false);
-	pinMode(SensorPin, INPUT);
+	this->sensorPin = SensorPin;
+	this->maxInput = 700;
+	this->minInput = 400;
+	this->numReadings = 10;
+	this->smoothingType = AVG;
+	vals = new int[numReadings];
+	readIndex = 0;
 }
 
-FlexHand::FlexHand(int SensorPin, int OutputPin){
-	setSensorPin(SensorPin);
-	setOutputPin(OutputPin);
-	setMaxOutput(180);
-	setMinOutput(0);
-	setMaxInput(700);
-	setMinInput(400);
-	setIsOuptutReversed(false);
-	this->servo.attach(outputPin);
-	pinMode(SensorPin, INPUT);
+FlexHand::FlexHand(int SensorPin, int minInput, int maxInput){
+	this->sensorPin = SensorPin;
+	this->maxInput = maxInput;
+	this->minInput = minInput;
+	this->numReadings = 10;
+	this->smoothingType = AVG;
+	vals = new int[numReadings];
+	readIndex = 0;
 }
 
-FlexHand::FlexHand(int SensorPin, int OutputPin, int minOutput, int maxOutput){
-	setSensorPin(SensorPin);
-	setOutputPin(OutputPin);
-	setMaxOutput(maxOutput);
-	setMinOutput(minOutput);
-	setMaxInput(700);
-	setMinInput(400);
-	setIsOuptutReversed(false);
-	this->servo.attach(outputPin);
-	pinMode(SensorPin, INPUT);
+FlexHand::FlexHand(int SensorPin, int numReadings, int smoothingType){
+	this->sensorPin = SensorPin;
+	this->maxInput = maxInput;
+	this->minInput = minInput;
+	this->numReadings = numReadings;
+	this->smoothingType = smoothingType;
+	vals = new int[numReadings];
+	readIndex = 0;
 }
 
-FlexHand::FlexHand(int SensorPin, int OutputPin, int minInput, int maxInput, int minOutput, int maxOutput){
-	setSensorPin(SensorPin);
-	setOutputPin(OutputPin);
-	setMaxOutput(maxOutput);
-	setMinOutput(minOutput);
-	setMaxInput(minInput);
-	setMinInput(maxInput);
-	setIsOuptutReversed(false);
-	this->servo.attach(outputPin);
-	pinMode(SensorPin, INPUT);
-}
-
-FlexHand::FlexHand(int SensorPin, int OutputPin, int minOutput, int maxOutput, bool isOutputReversed){
-	setSensorPin(SensorPin);
-	setOutputPin(OutputPin);
-	setMaxOutput(maxOutput);
-	setMinOutput(minOutput);
-	setMaxInput(700);
-	setMinInput(400);
-	setIsOuptutReversed(isOutputReversed);
-	this->servo.attach(outputPin);
-	pinMode(SensorPin, INPUT);
-}
-
-FlexHand::FlexHand(int SensorPin, int OutputPin, int minInput, int maxInput, int minOutput, int maxOutput, bool isOutputReversed){
-	setSensorPin(SensorPin);
-	setOutputPin(OutputPin);
-	setMaxOutput(maxOutput);
-	setMinOutput(minOutput);
-	setMaxInput(minInput);
-	setMinInput(maxInput);
-	setIsOuptutReversed(isOutputReversed);
-	this->servo.attach(outputPin);
-	pinMode(SensorPin, INPUT);
+FlexHand::FlexHand(int SensorPin, int minInput, int maxInput, int numReadings, int smoothingType){
+	this->sensorPin = SensorPin;
+	this->maxInput = maxInput;
+	this->minInput = minInput;
+	this->numReadings = numReadings;
+	this->smoothingType = smoothingType;
+	vals = new int[numReadings];
+	readIndex = 0;
 }
 
 void FlexHand::setSensorPin(int sensorPin){
 	this->sensorPin = sensorPin;
 }
 
-void FlexHand::setOutputPin(int outputPin){
-	this->outputPin = outputPin;
-}
-
 int FlexHand::getSensorValue(){
-	return sensorValue;
-}
-
-void FlexHand::setMaxOutput(int maxOutput){
-	this->maxOutput = maxOutput;
-}
-
-void FlexHand::setMinOutput(int minOutput){
-	this->minOutput = minOutput;
+	//TODO Edit
 }
 
 void FlexHand::setMaxInput(int maxInput){
@@ -117,42 +74,20 @@ void FlexHand::setMinInput(int minInput){
 	this->minInput = minInput;
 }
 
-void FlexHand::setMinMaxOutput(int minOutput, int maxOutput){
-	this->minOutput = minOutput;
-	this->maxOutput = maxOutput;
-}
-
 void FlexHand::setMinMaxInput(int minInput, int maxInput){
 	this->minInput = minInput;
 	this->maxInput = maxInput;
 }
 
-bool FlexHand::getIsOutputReversed(){
-	return isOutputReversed;
+void Calibrate(){
+	//TODO: Edit
 }
 
-void FlexHand::setIsOuptutReversed(bool isOutputReversed){
-	this->isOutputReversed = isOutputReversed;
+void FlexHand::updateVal(){
+	//TODO edit
 }
 
-void FlexHand::updateSensor(){
-	sensorValue = analogRead(sensorPin);
+bool isBend(){
+	//TODO Edit
 }
 
-int FlexHand::getTranslatedValue(){ 
-	return isOutputReversed ? map(sensorValue, minInput, maxInput, maxOutput, minOutput) : map(sensorValue, minInput, maxInput, minOutput, maxOutput);
-}
-
-void FlexHand::turn(int deg){
-	int writeVal = deg;
-	isOutputReversed ? (writeVal = (maxOutput - deg)) : (writeVal = deg);
-	isOutputReversed ? (constrain(writeVal, maxOutput, minOutput)) : (constrain(writeVal, minOutput, maxOutput));
-	servo.write(writeVal);
-}
-
-
-void FlexHand::calcAndTurn(){
-	int val = getTranslatedValue();
-	isOutputReversed ? constrain(val, maxOutput, minOutput) : constrain(val, minOutput, maxOutput);
-	servo.write(val);
-}
