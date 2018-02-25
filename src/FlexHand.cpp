@@ -16,7 +16,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "FlexHand.h"
-#include "Arduino.h"
 
 FlexHand::FlexHand(int SensorPin){
 	this->sensorPin = SensorPin;
@@ -25,7 +24,13 @@ FlexHand::FlexHand(int SensorPin){
 	this->numReadings = 10;
 	this->smoothingType = AVG;
 	vals = new int[numReadings];
+	expVals = new int[numReadings];
 	readIndex = 0;
+	this->weight = 0;
+	constrain(w, 0, 100);
+	
+	for(int i = 0; i < numReadings; i++) vals[i] = 0;
+	for(int i = 0; i < numReadings; i++) expVals[i] = 0;
 }
 
 FlexHand::FlexHand(int SensorPin, int minInput, int maxInput){
@@ -35,7 +40,13 @@ FlexHand::FlexHand(int SensorPin, int minInput, int maxInput){
 	this->numReadings = 10;
 	this->smoothingType = AVG;
 	vals = new int[numReadings];
+	expVals = new int[numReadings];
 	readIndex = 0;
+	this->weight = 0;
+	constrain(w, 0, 100);
+	
+	for(int i = 0; i < numReadings; i++) vals[i] = 0;
+	for(int i = 0; i < numReadings; i++) expVals[i] = 0;
 }
 
 FlexHand::FlexHand(int SensorPin, int numReadings, int smoothingType){
@@ -45,7 +56,29 @@ FlexHand::FlexHand(int SensorPin, int numReadings, int smoothingType){
 	this->numReadings = numReadings;
 	this->smoothingType = smoothingType;
 	vals = new int[numReadings];
+	expVals = new int[numReadings];
 	readIndex = 0;
+	this->weight = 0;
+	constrain(w, 0, 100);
+	
+	for(int i = 0; i < numReadings; i++) vals[i] = 0;
+	for(int i = 0; i < numReadings; i++) expVals[i] = 0;
+}
+
+FlexHand::FlexHand(int SensorPin, int numReadings, int smoothingType, int weight){
+	this->sensorPin = SensorPin;
+	this->maxInput = maxInput;
+	this->minInput = minInput;
+	this->numReadings = numReadings;
+	this->smoothingType = smoothingType;
+	vals = new int[numReadings];
+	expVals = new int[numReadings];
+	readIndex = 0;
+	this->weight = weight;
+	constrain(w, 0, 100);
+	
+	for(int i = 0; i < numReadings; i++) vals[i] = 0;
+	for(int i = 0; i < numReadings; i++) expVals[i] = 0;
 }
 
 FlexHand::FlexHand(int SensorPin, int minInput, int maxInput, int numReadings, int smoothingType){
@@ -55,7 +88,29 @@ FlexHand::FlexHand(int SensorPin, int minInput, int maxInput, int numReadings, i
 	this->numReadings = numReadings;
 	this->smoothingType = smoothingType;
 	vals = new int[numReadings];
+	expVals = new int[numReadings];
 	readIndex = 0;
+	this->weight = 0;
+	constrain(w, 0, 100);
+	
+	for(int i = 0; i < numReadings; i++) vals[i] = 0;
+	for(int i = 0; i < numReadings; i++) expVals[i] = 0;
+}
+
+FlexHand::FlexHand(int SensorPin, int minInput, int maxInput, int numReadings, int smoothingType, int weight){
+	this->sensorPin = SensorPin;
+	this->maxInput = maxInput;
+	this->minInput = minInput;
+	this->numReadings = numReadings;
+	this->smoothingType = smoothingType;
+	vals = new int[numReadings];
+	expVals = new int[numReadings];
+	readIndex = 0;
+	this->weight = weight;
+	constrain(w, 0, 100);
+	
+	for(int i = 0; i < numReadings; i++) vals[i] = 0;
+	for(int i = 0; i < numReadings; i++) expVals[i] = 0;
 }
 
 void FlexHand::setSensorPin(int sensorPin){
@@ -63,7 +118,21 @@ void FlexHand::setSensorPin(int sensorPin){
 }
 
 int FlexHand::getSensorValue(){
-	//TODO Edit
+	switch(smoothingType){
+		case -1 : 
+			return noSmooth();
+			break;
+		case 0 :
+			return avgSmooth();
+			break;
+		case 1 :
+			return runAvgSmooth();
+			break;
+		case 2 : 
+			return expSmooth(weight);
+			break;
+		
+	}
 }
 
 void FlexHand::setMaxInput(int maxInput){
@@ -79,15 +148,49 @@ void FlexHand::setMinMaxInput(int minInput, int maxInput){
 	this->maxInput = maxInput;
 }
 
-void Calibrate(){
+void FlexHand::Calibrate(){
 	//TODO: Edit
 }
 
 void FlexHand::updateVal(){
-	//TODO edit
+	readIndex++;
+	if(readIndex >= numReadings) readIndex = 0;
+	vals[readIndex] = analogRead(sensorPin);
 }
 
-bool isBend(){
+bool FlexHand::isBend(){
 	//TODO Edit
 }
 
+int FlexHand::noSmooth(){
+	return vals[readIndex];
+}
+
+int FlexHand::avgSmooth(){
+	double avg = 0;
+	readIndex = 0;
+	for(int i = 0; i < numReadings; i++){
+		updateVal();
+		avg += vals[i];
+		delayMicroseconds(10);
+	}
+	avg = avg / (double)numReadings;
+	return (int)avg;
+}
+
+int FlexHand::runAvgSmooth(){
+	double avg = 0;
+	for(int i = 0; i < numReadings; i++){
+		avg += vals[i];
+	}
+	return (int)avg;
+}
+
+int Flexhand::expSmooth(int weight){
+	double avg = 0;
+	int index = readIndex;
+	double w = weight / (100.0);
+	if(index == 0) index = numReadings-1;
+	avg = (w * vals[readIndex]) + ((1-w) * expVals[index]);
+	expVals[readIndex] = (int)avg;
+}
