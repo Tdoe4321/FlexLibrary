@@ -49,12 +49,11 @@ private:
 	int noSmooth();
 	int avgSmooth();
 	int runAvgSmooth();
-	int expSmooth();
+	int expSmooth(int weight);
 	
 public:
 	FlexHand(int SensorPin);
 	FlexHand(int SensorPin, int minInput, int maxInput);
-	FlexHand(int SensorPin, int numReadings, int smoothingType);
 	FlexHand(int SensorPin, int numReadings, int smoothingType, int weight);
 	FlexHand(int SensorPin, int minInput, int maxInput, int numReadings, int smoothingType);
 	FlexHand(int SensorPin, int minInput, int maxInput, int numReadings, int smoothingType, int weight);
