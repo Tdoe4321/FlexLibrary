@@ -19,6 +19,7 @@
 
 FlexHand::FlexHand(int SensorPin){
 	this->sensorPin = SensorPin;
+	pinMode(sensorPin, INPUT);
 	this->maxInput = 700;
 	this->minInput = 400;
 	this->numReadings = 10;
@@ -35,6 +36,7 @@ FlexHand::FlexHand(int SensorPin){
 
 FlexHand::FlexHand(int SensorPin, int minInput, int maxInput){
 	this->sensorPin = SensorPin;
+	pinMode(sensorPin, INPUT);
 	this->maxInput = maxInput;
 	this->minInput = minInput;
 	this->numReadings = 10;
@@ -51,6 +53,7 @@ FlexHand::FlexHand(int SensorPin, int minInput, int maxInput){
 
 FlexHand::FlexHand(int SensorPin, int numReadings, int smoothingType, int weight){
 	this->sensorPin = SensorPin;
+	pinMode(sensorPin, INPUT);
 	this->maxInput = maxInput;
 	this->minInput = minInput;
 	this->numReadings = numReadings;
@@ -67,6 +70,7 @@ FlexHand::FlexHand(int SensorPin, int numReadings, int smoothingType, int weight
 
 FlexHand::FlexHand(int SensorPin, int minInput, int maxInput, int numReadings, int smoothingType){
 	this->sensorPin = SensorPin;
+	pinMode(sensorPin, INPUT);
 	this->maxInput = maxInput;
 	this->minInput = minInput;
 	this->numReadings = numReadings;
@@ -83,6 +87,7 @@ FlexHand::FlexHand(int SensorPin, int minInput, int maxInput, int numReadings, i
 
 FlexHand::FlexHand(int SensorPin, int minInput, int maxInput, int numReadings, int smoothingType, int weight){
 	this->sensorPin = SensorPin;
+	pinMode(sensorPin, INPUT);
 	this->maxInput = maxInput;
 	this->minInput = minInput;
 	this->numReadings = numReadings;

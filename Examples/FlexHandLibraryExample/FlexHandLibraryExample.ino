@@ -1,4 +1,13 @@
 #include "FlexHand.h"
+#include <Servo.h>
+
+Servo ringS, thumbS, pinkyS, middleS, indexS;
+
+int servoPin1 = 5; // ring
+int servoPin2 = 2; // thumb
+int servoPin3 = 9;// pinky
+int servoPin4 = 11; // middle
+int servoPin5 = 3; // index
 
 int maxRing = 700;
 int maxThumb = 650;
@@ -12,91 +21,59 @@ int minPinky = 450;
 int minMiddle = 480;
 int minIndex = 450;
 
-FlexHand ring(A0, 5, 0, 180, maxRing, minRing, true);
-FlexHand thumb(A1, 2, 0, 180, maxThumb, minThumb, true);
-FlexHand pinky(A2, 9, 0, 180, maxPinky, minPinky, false);
-FlexHand middle(A3, 11, 0, 180, maxMiddle, minMiddle, false);
-FlexHand index(A4, 3, 0, 180, maxIndex, minIndex, false);
+FlexHand ring(A0, minRing, maxRing, 12, AVG);
+FlexHand thumb(A1, minThumb, maxThumb, 12, AVG);
+FlexHand pinky(A2, minPinky, maxPinky, 12, AVG);
+FlexHand middle(A3, minMiddle, maxMiddle, 12, AVG);
+FlexHand index(A4, minIndex, maxIndex, 12, AVG);
 
 void setup(){
-  ring.turn(90);
-  thumb.turn(90);
-  pinky.turn(90);
-  middle.turn(90);
-  index.turn(90);
+  ringS.attach(servoPin1);
+  thumbS.attach(servoPin2);
+  pinkyS.attach(servoPin3);
+  middleS.attach(servoPin4);
+  indexS.attach(servoPin5);
+  
+  ringS.turn(90);
+  thumbS.turn(90);
+  pinkyS.turn(90);
+  middleS.turn(90);
+  indexS.turn(90);
 
-  delay(3000);
-
-//  Serial.begin(9600);
-
-  //  for(int i = 0; i < 300; i++){
-  //      fRing = analogRead(flexPin1);
-  //      fThumb = analogRead(flexPin2);
-  //      fPinky = analogRead(flexPin3);
-  //      fMiddle = analogRead(flexPin4);
-  //      fIndex = analogRead(flexPin5);
-  //      
-  //    if(fRing > maxRing) maxRing = fRing;
-  //    if(fRing < minRing) minRing = fRing;
-  //
-  //    if(fThumb > maxThumb) maxThumb = fThumb;
-  //    if(fThumb < minThumb) minThumb = fThumb;
-  //
-  //    if(fPinky > maxPinky) maxPinky = fPinky;
-  //    if(fPinky < minPinky) minPinky = fPinky;
-  //
-  //    if(fMiddle > maxMiddle) maxMiddle = fMiddle;
-  //    if(fMiddle < minMiddle) minMiddle = fMiddle;
-  //
-  //    if(fIndex > maxIndex) maxIndex = fIndex;
-  //    if(fIndex < minIndex) minIndex = fIndex;
-  //  
-  //    delay(1);
-  //    Serial.print("Min: ");
-  //    Serial.print(minThumb);
-  //    Serial.print("   Max: ");
-  //    Serial.println(maxThumb);
-  //  }
-  //  
+  for(int i = 0; i < 1000; i++){
+    ring.updateVal();
+    thumb.updateVal();
+    pinky.updateVal();
+    middle.updateVal();
+    index.updateVal();
+  }
 }
 
-void loop()
-{
-ring.updateSensor();
-thumb.updateSensor();
-pinky.updateSensor();
-middle.updateSensor();
-index.updateSensor();
+void loop(){
+  ring.updateVal();
+  thumb.updateVal();
+  pinky.updateVal();
+  middle.updateVal();
+  index.updateVal();
 
-  /* Defines "pos" variables as being proportional to the flex inputs.
-  The 400 to 700 value range seemed adequate for my sensors, but you can change
-  yours accordingly. */
-//  int ringPos = map(fRing, minRing, maxRing, 180, 0);
-//  ringPos = constrain(ringPos, 0, 180);
-//  int thumbPos = map(fThumb, minThumb, maxThumb, 180, 0);
-//  thumbPos = constrain(thumbPos, 0, 180);
-//  int pinkyPos = map(fPinky, minPinky, maxPinky, 0, 180);
-//  pinkyPos = constrain(pinkyPos, 0, 180);
-//  int middlePos = map(fMiddle, minMiddle, maxMiddle, 0, 180);
-//  middlePos = constrain(middlePos, 0, 180);
-//  int indexPos = map(fIndex, minIndex, maxIndex, 0, 180);
-//  indexPos = constrain(indexPos, 0, 180);
-//
-//  Serial.println(fMiddle);
+  int ringPos = map(ring.getSensorValue(), minRing, maxRing, 180, 0);
+  ringPos = constrain(ringPos, 0, 180);
+  int thumbPos = map(thumb.getSensorValue(), minThumb, maxThumb, 180, 0);
+  thumbPos = constrain(thumbPos, 0, 180);
+  int pinkyPos = map(pinky.getSensorValue(), minPinky, maxPinky, 0, 180);
+  pinkyPos = constrain(pinkyPos, 0, 180);
+  int middlePos = map(middle.getSensorValue(), minMiddle, maxMiddle, 0, 180);
+  middlePos = constrain(middlePos, 0, 180);
+  int indexPos = map(index.getSensorValue(), minIndex, maxIndex, 0, 180);
+  indexPos = constrain(indexPos, 0, 180);
 
-ring.calcAndTurn();
-thumb.calcAndTurn();
-pinky.calcAndTurn();
-middle.calcAndTurn();
-index.calcAndTurn();
-
-
-
-
+  
   //Tells servos to move by the amount specified in the "pos" variables
-//  ring.write(ringPos);
-//  thumb.write(thumbPos);
-//  pinky.write(pinkyPos);
-//  middle.write(middlePos);
-//  index.write(indexPos);
+  ringS.write(ringPos);
+  thumbS.write(thumbPos);
+  pinkyS.write(pinkyPos);
+  middleS.write(middlePos);
+  indexS.write(indexPos);
+
+
 }
