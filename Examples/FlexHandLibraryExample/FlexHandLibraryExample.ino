@@ -40,12 +40,12 @@ void setup(){
   middleS.turn(90);
   indexS.turn(90);
 
-  for(int i = 0; i < 1000; i++){
-    ring.updateVal();
-    thumb.updateVal();
-    pinky.updateVal();
-    middle.updateVal();
-    index.updateVal();
+  for(int i = 0; i < 3000; i++){
+    ring.Calibrate();
+    thumb.Calibrate();
+    pinky.Calibrate();
+    middle.Calibrate();
+    index.Calibrate();
   }
 }
 

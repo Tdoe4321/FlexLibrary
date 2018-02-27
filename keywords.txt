@@ -8,6 +8,10 @@ FlexHand	KEYWORD1
 # Methods / Functions (KEYWORD2)
 # ----------------------------------------------
 
+noSmooth	KEYWORD2
+avgSmooth	KEYWORD2
+runAvgSmooth	KEYWORD2
+expSmooth	KEYWORD2
 setSensorPin	KEYWORD2
 getSensorValue	KEYWORD2
 setMaxInput	KEYWORD2

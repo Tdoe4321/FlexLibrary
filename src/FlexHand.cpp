@@ -20,8 +20,8 @@
 FlexHand::FlexHand(int SensorPin){
 	this->sensorPin = SensorPin;
 	pinMode(sensorPin, INPUT);
-	this->maxInput = 700;
-	this->minInput = 400;
+	this->maxInput = 400;	// These values are intentionally designed to use the 
+	this->minInput = 700;	// calibrate() function
 	this->numReadings = 10;
 	this->smoothingType = AVG;
 	vals = new int[numReadings];
@@ -138,7 +138,10 @@ void FlexHand::setMinMaxInput(int minInput, int maxInput){
 }
 
 void FlexHand::Calibrate(){
-	//TODO: Edit
+	updateVal();
+	int val = getSensorValue();
+	if(val > maxInput) maxInput = val;
+	if(val < minInput) minInput = val;
 }
 
 void FlexHand::updateVal(){
@@ -148,7 +151,9 @@ void FlexHand::updateVal(){
 }
 
 bool FlexHand::isBent(){
-	//TODO Edit
+	if(map(getSensorValue(), minInput, maxInput, 0, 100) <= 40) return true;
+	else if(map(getSensorValue(), minInput, maxInput, 0, 100) >= 60) return false;
+	else return false;
 }
 
 int FlexHand::noSmooth(){
