@@ -5,7 +5,7 @@ Servo ringS, thumbS, pinkyS, middleS, indexS;
 
 int servoPin1 = 5; // ring
 int servoPin2 = 2; // thumb
-int servoPin3 = 9;// pinky
+int servoPin3 = 9;  // pinky
 int servoPin4 = 11; // middle
 int servoPin5 = 3; // index
 
@@ -34,11 +34,11 @@ void setup(){
   middleS.attach(servoPin4);
   indexS.attach(servoPin5);
   
-  ringS.turn(90);
-  thumbS.turn(90);
-  pinkyS.turn(90);
-  middleS.turn(90);
-  indexS.turn(90);
+  ringS.write(90);
+  thumbS.write(90);
+  pinkyS.write(90);
+  middleS.write(90);
+  indexS.write(90);
 
   for(int i = 0; i < 3000; i++){
     ring.Calibrate();
