@@ -162,6 +162,14 @@ int FlexHand::noSmooth(){
 
 int FlexHand::avgSmooth(){
 	double avg = 0;
+	for(int i = 0; i < numReadings; i++){
+		avg += vals[i];
+	}
+	return (int)(avg / (double)numReadings);
+}
+
+int FlexHand::runAvgSmooth(){
+	double avg = 0;
 	readIndex = 0;
 	for(int i = 0; i < numReadings; i++){
 		updateVal();
@@ -172,19 +180,12 @@ int FlexHand::avgSmooth(){
 	return (int)avg;
 }
 
-int FlexHand::runAvgSmooth(){
-	double avg = 0;
-	for(int i = 0; i < numReadings; i++){
-		avg += vals[i];
-	}
-	return (int)avg;
-}
-
 int FlexHand::expSmooth(int weight){
 	double avg = 0;
 	int index = readIndex;
-	double w = weight / (100.0);
+	double w = (double)weight / (100.0);
 	if(index == 0) index = numReadings-1;
 	avg = (w * vals[readIndex]) + ((1-w) * expVals[index]);
 	expVals[readIndex] = (int)avg;
+	return (int)avg;
 }

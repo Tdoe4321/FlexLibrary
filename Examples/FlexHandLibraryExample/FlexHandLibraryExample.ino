@@ -3,6 +3,8 @@
 
 Servo ringS, thumbS, pinkyS, middleS, indexS;
 
+String debug = "";
+
 int servoPin1 = 5; // ring
 int servoPin2 = 2; // thumb
 int servoPin3 = 9;  // pinky
@@ -10,7 +12,7 @@ int servoPin4 = 11; // middle
 int servoPin5 = 3; // index
 
 int maxRing = 700;
-int maxThumb = 650;
+int maxThumb = 570;
 int maxPinky = 700;
 int maxMiddle = 640;
 int maxIndex = 700;
@@ -21,13 +23,15 @@ int minPinky = 450;
 int minMiddle = 480;
 int minIndex = 450;
 
-FlexHand ring(A0, minRing, maxRing, 12, AVG);
-FlexHand thumb(A1, minThumb, maxThumb, 12, AVG);
-FlexHand pinky(A2, minPinky, maxPinky, 12, AVG);
-FlexHand middle(A3, minMiddle, maxMiddle, 12, AVG);
-FlexHand index(A4, minIndex, maxIndex, 12, AVG);
+FlexHand ring(A3, minRing, maxRing, 10, EXP, 60);
+FlexHand thumb(A0, minThumb, maxThumb, 10, EXP, 60);
+FlexHand pinky(A4, minPinky, maxPinky, 10, EXP, 60);
+FlexHand middle(A2, minMiddle, maxMiddle, 10, EXP, 60);
+FlexHand index(A1, minIndex, maxIndex, 10, EXP, 60);
 
 void setup(){
+  Serial.begin(9600);
+  
   ringS.attach(servoPin1);
   thumbS.attach(servoPin2);
   pinkyS.attach(servoPin3);
@@ -40,13 +44,15 @@ void setup(){
   middleS.write(90);
   indexS.write(90);
 
-  for(int i = 0; i < 3000; i++){
-    ring.Calibrate();
-    thumb.Calibrate();
-    pinky.Calibrate();
-    middle.Calibrate();
-    index.Calibrate();
-  }
+  delay(3000);
+
+  //for(int i = 0; i < 1000; i++){
+    //ring.Calibrate();
+    //thumb.Calibrate();
+    //pinky.Calibrate();
+    //middle.Calibrate();
+    //index.Calibrate();
+  //}
 }
 
 void loop(){
@@ -75,5 +81,8 @@ void loop(){
   middleS.write(middlePos);
   indexS.write(indexPos);
 
+  //debug = ((String)"Thumb: " + thumbPos + "\tIndex: " + indexPos + "\tMiddle: " + middlePos + "\tRing: " + ringPos + "\tPinky: " + pinkyPos);
+  debug = ((String)"Thumb: " + thumb.getSensorValue() + "\tIndex: " + index.getSensorValue() + "\tMiddle: " + middle.getSensorValue() + "\tRing: " + ring.getSensorValue() + "\tPinky: " + pinky.getSensorValue());
+  Serial.println(debug);
 
 }
