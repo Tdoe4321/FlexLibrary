@@ -15,9 +15,9 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#include "FlexHand.h"
+#include "FlexLibrary.h"
 
-FlexHand::FlexHand(int SensorPin){
+Flex::Flex(int SensorPin){
 	this->sensorPin = SensorPin;
 	pinMode(sensorPin, INPUT);
 	this->maxInput = 400;	// These values are intentionally designed to use the 
@@ -34,7 +34,7 @@ FlexHand::FlexHand(int SensorPin){
 	for(int i = 0; i < numReadings; i++) expVals[i] = 0;
 }
 
-FlexHand::FlexHand(int SensorPin, int minInput, int maxInput){
+Flex::Flex(int SensorPin, int minInput, int maxInput){
 	this->sensorPin = SensorPin;
 	pinMode(sensorPin, INPUT);
 	this->maxInput = maxInput;
@@ -51,7 +51,7 @@ FlexHand::FlexHand(int SensorPin, int minInput, int maxInput){
 	for(int i = 0; i < numReadings; i++) expVals[i] = 0;
 }
 
-FlexHand::FlexHand(int SensorPin, int numReadings, int smoothingType, int weight){
+Flex::Flex(int SensorPin, int numReadings, int smoothingType, int weight){
 	this->sensorPin = SensorPin;
 	pinMode(sensorPin, INPUT);
 	this->maxInput = maxInput;
@@ -68,7 +68,7 @@ FlexHand::FlexHand(int SensorPin, int numReadings, int smoothingType, int weight
 	for(int i = 0; i < numReadings; i++) expVals[i] = 0;
 }
 
-FlexHand::FlexHand(int SensorPin, int minInput, int maxInput, int numReadings, int smoothingType){
+Flex::Flex(int SensorPin, int minInput, int maxInput, int numReadings, int smoothingType){
 	this->sensorPin = SensorPin;
 	pinMode(sensorPin, INPUT);
 	this->maxInput = maxInput;
@@ -85,7 +85,7 @@ FlexHand::FlexHand(int SensorPin, int minInput, int maxInput, int numReadings, i
 	for(int i = 0; i < numReadings; i++) expVals[i] = 0;
 }
 
-FlexHand::FlexHand(int SensorPin, int minInput, int maxInput, int numReadings, int smoothingType, int weight){
+Flex::Flex(int SensorPin, int minInput, int maxInput, int numReadings, int smoothingType, int weight){
 	this->sensorPin = SensorPin;
 	pinMode(sensorPin, INPUT);
 	this->maxInput = maxInput;
@@ -102,11 +102,11 @@ FlexHand::FlexHand(int SensorPin, int minInput, int maxInput, int numReadings, i
 	for(int i = 0; i < numReadings; i++) expVals[i] = 0;
 }
 
-void FlexHand::setSensorPin(int sensorPin){
+void Flex::setSensorPin(int sensorPin){
 	this->sensorPin = sensorPin;
 }
 
-int FlexHand::getSensorValue(){
+int Flex::getSensorValue(){
 	switch(smoothingType){
 		case -1 : 
 			return noSmooth();
@@ -124,43 +124,43 @@ int FlexHand::getSensorValue(){
 	}
 }
 
-void FlexHand::setMaxInput(int maxInput){
+void Flex::setMaxInput(int maxInput){
 	this->maxInput = maxInput;
 }	
 
-void FlexHand::setMinInput(int minInput){
+void Flex::setMinInput(int minInput){
 	this->minInput = minInput;
 }
 
-void FlexHand::setMinMaxInput(int minInput, int maxInput){
+void Flex::setMinMaxInput(int minInput, int maxInput){
 	this->minInput = minInput;
 	this->maxInput = maxInput;
 }
 
-void FlexHand::Calibrate(){
+void Flex::Calibrate(){
 	updateVal();
 	int val = getSensorValue();
 	if(val > maxInput) maxInput = val;
 	if(val < minInput) minInput = val;
 }
 
-void FlexHand::updateVal(){
+void Flex::updateVal(){
 	readIndex++;
 	if(readIndex >= numReadings) readIndex = 0;
 	vals[readIndex] = analogRead(sensorPin);
 }
 
-bool FlexHand::isBent(){
+bool Flex::isBent(){
 	if(map(getSensorValue(), minInput, maxInput, 0, 100) <= 40) return true;
 	else if(map(getSensorValue(), minInput, maxInput, 0, 100) >= 60) return false;
 	else return false;
 }
 
-int FlexHand::noSmooth(){
+int Flex::noSmooth(){
 	return vals[readIndex];
 }
 
-int FlexHand::avgSmooth(){
+int Flex::avgSmooth(){
 	double avg = 0;
 	for(int i = 0; i < numReadings; i++){
 		avg += vals[i];
@@ -168,7 +168,7 @@ int FlexHand::avgSmooth(){
 	return (int)(avg / (double)numReadings);
 }
 
-int FlexHand::runAvgSmooth(){
+int Flex::runAvgSmooth(){
 	double avg = 0;
 	readIndex = 0;
 	for(int i = 0; i < numReadings; i++){
@@ -180,7 +180,7 @@ int FlexHand::runAvgSmooth(){
 	return (int)avg;
 }
 
-int FlexHand::expSmooth(int weight){
+int Flex::expSmooth(int weight){
 	double avg = 0;
 	int index = readIndex;
 	double w = (double)weight / (100.0);

@@ -1,4 +1,4 @@
-#include "FlexHand.h"
+#include "FlexLibrary.h"
 #include <Servo.h>
 
 Servo ringS, thumbS, pinkyS, middleS, indexS;
@@ -11,23 +11,23 @@ int servoPin3 = 9;  // pinky
 int servoPin4 = 11; // middle
 int servoPin5 = 3; // index
 
-int maxRing = 700;
-int maxThumb = 570;
-int maxPinky = 700;
-int maxMiddle = 640;
-int maxIndex = 700;
+int maxRing = 580;
+int maxThumb = 600;
+int maxPinky = 620;
+int maxMiddle = 570;
+int maxIndex = 575;
 
-int minRing = 450;
-int minThumb = 380;
-int minPinky = 450;
-int minMiddle = 480;
+int minRing = 420;
+int minThumb = 440;
+int minPinky = 420;
+int minMiddle = 440;
 int minIndex = 450;
 
-FlexHand ring(A3, minRing, maxRing, 10, EXP, 60);
-FlexHand thumb(A0, minThumb, maxThumb, 10, EXP, 60);
-FlexHand pinky(A4, minPinky, maxPinky, 10, EXP, 60);
-FlexHand middle(A2, minMiddle, maxMiddle, 10, EXP, 60);
-FlexHand index(A1, minIndex, maxIndex, 10, EXP, 60);
+Flex ring(A3, minRing, maxRing, 10, RUN_AVG, 0);
+Flex thumb(A0, minThumb, maxThumb, 10, RUN_AVG, 0);
+Flex pinky(A4, minPinky, maxPinky, 10, RUN_AVG, 0);
+Flex middle(A2, minMiddle, maxMiddle, 10, RUN_AVG, 0);
+Flex index(A1, minIndex, maxIndex, 10, RUN_AVG, 0);
 
 void setup(){
   Serial.begin(9600);
@@ -46,13 +46,13 @@ void setup(){
 
   delay(3000);
 
-  //for(int i = 0; i < 1000; i++){
-    //ring.Calibrate();
-    //thumb.Calibrate();
-    //pinky.Calibrate();
-    //middle.Calibrate();
-    //index.Calibrate();
-  //}
+//  for(int i = 0; i < 1000; i++){
+//    ring.Calibrate();
+//    thumb.Calibrate();
+//    pinky.Calibrate();
+//    middle.Calibrate();
+//    index.Calibrate();
+//  }
 }
 
 void loop(){

@@ -2,7 +2,7 @@
 # Datatypes - Objects (KEYWORD1)
 # ----------------------------------------------
 
-FlexHand	KEYWORD1
+Flex	KEYWORD1
 
 # ----------------------------------------------
 # Methods / Functions (KEYWORD2)
