@@ -37,13 +37,13 @@
 class Flex {
 private:
 	int sensorPin;  	// The analog pin the Flex sensor is read into 
-	int maxInput;  		// Max Input on the flex sensors themselves - this is used for calibration on the sensors
 	int minInput;		// Min Input on the flex sensors themselves - this is used for calibration on the sensors
-	int numReadings; 	// The number of reading you want to take into the Averaging Process
-	int* vals; 			// An array of Values
+	int maxInput;  		// Max Input on the flex sensors themselves - this is used for calibration on the sensors
+	int numReadings; 	// The number of reading you want to take into the Averaging / Smoothing Process
 	int readIndex; 		// Where we are in the averaging process
 	int smoothingType;  // Options are: NONE, AVG, RUN_AVG, EXP
 	int weight; 		// Only for exponential smoothing function
+	int* vals; 			// An array of Values	
 	int* expVals; 		// Used for the exponential smoothing function
 	
 	int noSmooth();		// Returns the unsmoothed value of the flex sensor

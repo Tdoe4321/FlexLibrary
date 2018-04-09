@@ -23,7 +23,7 @@ Flex::Flex(int SensorPin){
 	this->maxInput = 400;	// These values are intentionally designed to use the 
 	this->minInput = 700;	// calibrate() function
 	this->numReadings = 10;
-	this->smoothingType = AVG;
+	this->smoothingType = NONE;
 	vals = new int[numReadings];
 	expVals = new int[numReadings];
 	readIndex = 0;
@@ -40,7 +40,7 @@ Flex::Flex(int SensorPin, int minInput, int maxInput){
 	this->maxInput = maxInput;
 	this->minInput = minInput;
 	this->numReadings = 10;
-	this->smoothingType = AVG;
+	this->smoothingType = NONE;
 	vals = new int[numReadings];
 	expVals = new int[numReadings];
 	readIndex = 0;
@@ -152,7 +152,6 @@ void Flex::updateVal(){
 
 bool Flex::isBent(){
 	if(map(getSensorValue(), minInput, maxInput, 0, 100) <= 40) return true;
-	else if(map(getSensorValue(), minInput, maxInput, 0, 100) >= 60) return false;
 	else return false;
 }
 
