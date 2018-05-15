@@ -14,6 +14,8 @@ runAvgSmooth	KEYWORD2
 expSmooth	KEYWORD2
 setSensorPin	KEYWORD2
 getSensorValue	KEYWORD2
+getMinInput	KEYWORD2
+getMaxInput	KEYWORD2
 setMaxInput	KEYWORD2
 setMinInput	KEYWORD2
 setMinMaxInput	KEYWORD2

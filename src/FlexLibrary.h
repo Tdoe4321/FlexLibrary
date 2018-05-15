@@ -62,6 +62,9 @@ public:
 	void setSensorPin(int sensorPin);
 		
 	int getSensorValue();
+
+	int getMinInput();
+	int getMaxInput();
 	
 	void setMaxInput(int maxInput);
 	void setMinInput(int minInput);

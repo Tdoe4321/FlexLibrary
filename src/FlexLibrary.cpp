@@ -124,6 +124,14 @@ int Flex::getSensorValue(){
 	}
 }
 
+int Flex::getMinInput(){
+	return minInput;
+}
+
+int Flex::getMaxInput(){
+	return maxInput;
+}
+
 void Flex::setMaxInput(int maxInput){
 	this->maxInput = maxInput;
 }	

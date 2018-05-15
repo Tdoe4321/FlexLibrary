@@ -52,7 +52,6 @@ weight = 0
 
 ##### Flex(int SensorPin, int minInput, int maxInput, int numReadings, int smoothingType, int weight)  
 
-
 ### Get and Set  
 You have the ability to get or set the following data members:
 
@@ -60,6 +59,12 @@ You have the ability to get or set the following data members:
 
 ##### int getSensorValue()  
 Returns the most recent value from the sensor.
+
+##### int getMinInput()  
+Returns the min value from a calibrated FlexSensor
+
+##### int getMaxInput()  
+Returns the max value from a calibrated FlexSensor
 
 ##### void setMaxInput(int maxInput)
 
